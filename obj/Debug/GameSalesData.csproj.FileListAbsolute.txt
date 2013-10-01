@@ -1,0 +1,14 @@
+E:\Work\Waseem\GameSalesData\GameSalesData\bin\Debug\GameSalesData.exe.config
+E:\Work\Waseem\GameSalesData\GameSalesData\obj\Debug\GameSalesData.MainForm.resources
+E:\Work\Waseem\GameSalesData\GameSalesData\obj\Debug\GameSalesData.Properties.Resources.resources
+E:\Work\Waseem\GameSalesData\GameSalesData\obj\Debug\GameSalesData.csproj.GenerateResource.Cache
+E:\Work\Waseem\GameSalesData\GameSalesData\bin\Debug\GameSalesData.exe
+E:\Work\Waseem\GameSalesData\GameSalesData\bin\Debug\GameSalesData.pdb
+E:\Work\Waseem\GameSalesData\GameSalesData\bin\Debug\Newtonsoft.Json.dll
+E:\Work\Waseem\GameSalesData\GameSalesData\bin\Debug\System.Net.Http.Formatting.dll
+E:\Work\Waseem\GameSalesData\GameSalesData\bin\Debug\Newtonsoft.Json.xml
+E:\Work\Waseem\GameSalesData\GameSalesData\bin\Debug\System.Net.Http.Formatting.xml
+E:\Work\Waseem\GameSalesData\GameSalesData\obj\Debug\GameSalesData.exe
+E:\Work\Waseem\GameSalesData\GameSalesData\obj\Debug\GameSalesData.pdb
+E:\Work\Waseem\GameSalesData\GameSalesData\obj\Debug\GameSalesData.csprojResolveAssemblyReference.cache
+E:\Work\Waseem\GameSalesData\GameSalesData\obj\Debug\GameSalesData.DataPopupForm.resources
