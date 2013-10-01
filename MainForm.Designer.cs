@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.btnAAApplications = new System.Windows.Forms.Button();
             this.btnRevMob = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -46,7 +44,9 @@
             this.dtpEndDate = new System.Windows.Forms.DateTimePicker();
             this.dtpStartDate = new System.Windows.Forms.DateTimePicker();
             this.btnAdMobLogin = new System.Windows.Forms.Button();
-            this.btnMobFoxPubs = new System.Windows.Forms.Button();
+            this.tabAppAnnie = new System.Windows.Forms.TabPage();
+            this.grdAppAnnie = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCB.SuspendLayout();
@@ -54,31 +54,13 @@
             this.tabMobFox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdMobFox)).BeginInit();
             this.panel1.SuspendLayout();
+            this.tabAppAnnie.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdAppAnnie)).BeginInit();
             this.SuspendLayout();
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(834, 5);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(101, 33);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Accounts";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // btnAAApplications
-            // 
-            this.btnAAApplications.Location = new System.Drawing.Point(834, 44);
-            this.btnAAApplications.Name = "btnAAApplications";
-            this.btnAAApplications.Size = new System.Drawing.Size(101, 33);
-            this.btnAAApplications.TabIndex = 1;
-            this.btnAAApplications.Text = "Applications";
-            this.btnAAApplications.UseVisualStyleBackColor = true;
-            this.btnAAApplications.Click += new System.EventHandler(this.btnAAApplications_Click);
             // 
             // btnRevMob
             // 
-            this.btnRevMob.Location = new System.Drawing.Point(834, 83);
+            this.btnRevMob.Location = new System.Drawing.Point(834, 10);
             this.btnRevMob.Name = "btnRevMob";
             this.btnRevMob.Size = new System.Drawing.Size(101, 30);
             this.btnRevMob.TabIndex = 6;
@@ -107,6 +89,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabCB);
             this.tabControl1.Controls.Add(this.tabMobFox);
+            this.tabControl1.Controls.Add(this.tabAppAnnie);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(3, 57);
             this.tabControl1.Name = "tabControl1";
@@ -246,25 +229,44 @@
             this.btnAdMobLogin.Text = "AdMob Login";
             this.btnAdMobLogin.UseVisualStyleBackColor = true;
             // 
-            // btnMobFoxPubs
+            // tabAppAnnie
             // 
-            this.btnMobFoxPubs.Location = new System.Drawing.Point(834, 119);
-            this.btnMobFoxPubs.Name = "btnMobFoxPubs";
-            this.btnMobFoxPubs.Size = new System.Drawing.Size(101, 31);
-            this.btnMobFoxPubs.TabIndex = 12;
-            this.btnMobFoxPubs.Text = "MobFox Pubs";
-            this.btnMobFoxPubs.UseVisualStyleBackColor = true;
+            this.tabAppAnnie.Controls.Add(this.grdAppAnnie);
+            this.tabAppAnnie.Location = new System.Drawing.Point(4, 22);
+            this.tabAppAnnie.Name = "tabAppAnnie";
+            this.tabAppAnnie.Size = new System.Drawing.Size(814, 419);
+            this.tabAppAnnie.TabIndex = 2;
+            this.tabAppAnnie.Text = "App Annie";
+            this.tabAppAnnie.UseVisualStyleBackColor = true;
+            // 
+            // grdAppAnnie
+            // 
+            this.grdAppAnnie.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.grdAppAnnie.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdAppAnnie.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn2});
+            this.grdAppAnnie.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdAppAnnie.Location = new System.Drawing.Point(0, 0);
+            this.grdAppAnnie.MultiSelect = false;
+            this.grdAppAnnie.Name = "grdAppAnnie";
+            this.grdAppAnnie.ReadOnly = true;
+            this.grdAppAnnie.Size = new System.Drawing.Size(814, 419);
+            this.grdAppAnnie.TabIndex = 5;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "Applications";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 89;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(944, 559);
-            this.Controls.Add(this.btnMobFoxPubs);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.btnRevMob);
-            this.Controls.Add(this.btnAAApplications);
-            this.Controls.Add(this.button1);
             this.Name = "MainForm";
             this.Text = "Reporting";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -276,14 +278,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.grdMobFox)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.tabAppAnnie.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grdAppAnnie)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button btnAAApplications;
         private System.Windows.Forms.Button btnRevMob;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel panel1;
@@ -299,8 +301,10 @@
         private System.Windows.Forms.DataGridView grdMobFox;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.Button btnAdMobLogin;
-        private System.Windows.Forms.Button btnMobFoxPubs;
         private System.Windows.Forms.Button btnCBRefresh;
+        private System.Windows.Forms.TabPage tabAppAnnie;
+        private System.Windows.Forms.DataGridView grdAppAnnie;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
     }
 }
 

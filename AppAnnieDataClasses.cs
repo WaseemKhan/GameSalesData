@@ -62,7 +62,7 @@ namespace GameSalesData.AppAnnieDataClasses
         public String AppName { get; set; }
         
         [JsonProperty(PropertyName = "devices")]
-        public String Devices { get; set; }
+        public String[] Devices { get; set; }
         	
         [JsonProperty(PropertyName = "icon")]
         public String icon { get; set; }

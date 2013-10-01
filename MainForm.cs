@@ -18,6 +18,8 @@ namespace GameSalesData
     public partial class MainForm : Form
     {
         public List<AppAnnieDataClasses.AppAnnieAccount> AppAnnieAccounts = new List<AppAnnieDataClasses.AppAnnieAccount>();
+        public List<AppAnnieDataClasses.AppAnnieApplication> AppAnnieApps = new List<AppAnnieDataClasses.AppAnnieApplication>();
+
         public List<MobFoxDataClasses.MobFoxPublication> MobFoxPubs = new List<MobFoxDataClasses.MobFoxPublication>();
 
 
@@ -48,7 +50,7 @@ namespace GameSalesData
                 FillGridCBApps(dtpStartDate.Value, dtpEndDate.Value);
                 PerformCBGridTotals();
             }
-            else
+            else if (tabControl1.SelectedIndex == 1)
             {
                 grdMobFox.Columns.Clear();
                 grdMobFox.Rows.Clear();
@@ -62,7 +64,20 @@ namespace GameSalesData
 
                 FillGridMobFoxApps(dtpStartDate.Value, dtpEndDate.Value);
             }
+            else if (tabControl1.SelectedIndex == 2)
+            {
+                grdAppAnnie.Columns.Clear();
+                grdAppAnnie.Rows.Clear();
 
+                grdAppAnnie.Columns.Add("Column0", "Applications");
+                grdAppAnnie.Columns[0].Frozen = true;
+
+                grdAppAnnie.Columns.Add("Column1", "Totals");
+                grdAppAnnie.Columns[1].DefaultCellStyle.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold);
+                grdAppAnnie.Columns[1].Frozen = true;
+
+                FillGridAppAnnieApps(dtpStartDate.Value, dtpEndDate.Value);
+            }
             Cursor = Cursors.Default;
         }
 
@@ -210,7 +225,6 @@ namespace GameSalesData
 
                     rIndex++;
                 }
-
             }
         }
 
@@ -279,9 +293,17 @@ namespace GameSalesData
             frm.ShowDialog();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void FillGridAppAnnieApps(DateTime StartDate, DateTime EndDate)
         {
             HttpClient client = new HttpClient();
+            HttpResponseMessage response = null;
+
+            // Populate Date in Header
+            for (DateTime dt = StartDate; dt <= EndDate; dt = dt.AddDays(1))
+            {
+                int ColumnIndex = grdAppAnnie.Columns.Add("Column" + grdChartBoost.Columns.Count, dt.ToString("yyyy-MM-dd"));
+                grdAppAnnie.Columns[ColumnIndex].Tag = dt.ToString("yyyy-MM-dd");
+            }
 
             client.BaseAddress = new Uri("https://api.appannie.com/");
 
@@ -295,7 +317,7 @@ namespace GameSalesData
             // Add an Accept header for JSON format.
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpResponseMessage response = client.GetAsync("/v1/accounts?page_index=0").Result;
+            response = client.GetAsync("/v1/accounts?page_index=0").Result;
 
             if (response.IsSuccessStatusCode)
             {
@@ -303,11 +325,38 @@ namespace GameSalesData
                 var products = response.Content.ReadAsAsync<AppAnnieDataClasses.AppAnnieAccountResponse>().Result;
 
                 AppAnnieAccounts = products.AccountList;
-                //AppAnnieAccounts.AddRange(products.AccountList);
+
+                foreach (AppAnnieDataClasses.AppAnnieAccount Act in AppAnnieAccounts)
+                {
+                    response = client.GetAsync("/v1/accounts/" + Act.AccountID + "/apps?page_index=0").Result;
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        String resp = response.Content.ReadAsStringAsync().Result;
+
+                        // Parse the response body. Blocking!
+                        var annApps = response.Content.ReadAsAsync<AppAnnieDataClasses.AppAnnieApplicationResponse>().Result;
+
+                        foreach (var AppAnnieApp in annApps.AppList)
+                        {
+                            int rowIndex = grdAppAnnie.Rows.Add(1);
+
+                            // Initialize row columns with Zero
+                            for (int colIndex = 2; colIndex <= grdAppAnnie.ColumnCount - 1; colIndex++)
+                                grdAppAnnie.Rows[rowIndex].Cells[colIndex].Value = "$0.0";
+
+                            grdAppAnnie.Rows[rowIndex].Cells[0].Value = AppAnnieApp.AppName;
+
+                            FillAppAnnieAppRevenues(StartDate, EndDate, Act.AccountID, AppAnnieApp.AppID, rowIndex);
+                        }
+
+                        AppAnnieApps.AddRange(annApps.AppList);
+                    }
+                }
             }
         }
 
-        private void btnAAApplications_Click(object sender, EventArgs e)
+        private void FillAppAnnieAppRevenues(DateTime StartDate, DateTime EndDate, String AccountID, String AppID, int rowIndex)
         {
             HttpClient client = new HttpClient();
             HttpResponseMessage response = null;
@@ -324,21 +373,38 @@ namespace GameSalesData
             // Add an Accept header for JSON format.
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
+            String queryString = AccountID + "/apps/" + AppID + "/sales?breakdown=date+iap" + "&start_date=" + StartDate.ToString("yyyy-MM-dd") + "&end_date=" +
+                                 EndDate.ToString("yyyy-MM-dd");
 
-            foreach (AppAnnieDataClasses.AppAnnieAccount Act in AppAnnieAccounts)
+            response = client.GetAsync("/v1/accounts/" + queryString ).Result;
+
+            //api.appannie.com /v1/accounts/1000/apps/com.superfungame/sales?break_down=date+iap
+            //                                                                                &start_date=2012-01-01
+            //                                                                                &end_date=2012-02-01
+
+            if (response.IsSuccessStatusCode)
             {
-                response = client.GetAsync("/v1/accounts/" + Act.AccountID + "/apps?page_index=0").Result;
+                String resp = response.Content.ReadAsStringAsync().Result;
 
-                if (response.IsSuccessStatusCode)
-                {
-                    // Parse the response body. Blocking!
-                    //var products = response.Content.ReadAsAsync<AppAnnieDataClasses.AppAnnieAccountResponse>().Result;
+                //var CBAppAnalytics = response.Content.ReadAsAsync<ChartboostDataClasses.CBAppAnalytics[]>().Result;
 
-                    String resp = response.Content.ReadAsStringAsync().Result;
-                }
+                //grdChartBoost.Rows[rowIndex].Cells[0].Tag = CBAppAnalytics;
+
+                //foreach (var CBAnalytic in CBAppAnalytics)
+                //{
+                //    ChartboostDataClasses.CBAppAnalytics CBAnaly = (ChartboostDataClasses.CBAppAnalytics)CBAnalytic;
+
+                //    for (int colIndex = 2; colIndex < grdChartBoost.Columns.Count; colIndex++)
+                //    {
+                //        if (grdChartBoost.Columns[colIndex].Tag.ToString() == CBAnaly.Date)
+                //        {
+                //            grdChartBoost.Rows[rowIndex].Cells[colIndex].Value = CBAnaly.MoneyEarned;
+                //            break;
+                //        }
+                //    }
+                //}
             }
         }
-        
         private void btnAdMobLogin_Click(object sender, EventArgs e)
         {
             HttpClient client = new HttpClient();
@@ -400,5 +466,6 @@ namespace GameSalesData
                 String resp = response.Content.ReadAsStringAsync().Result;
             }
         }
+
     } // Class End
 } // Namespace End
