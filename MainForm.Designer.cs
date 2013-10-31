@@ -37,25 +37,29 @@
             this.tabMobFox = new System.Windows.Forms.TabPage();
             this.grdMobFox = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabAppAnnie = new System.Windows.Forms.TabPage();
+            this.grdAppAnnie = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnCBRefresh = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dtpEndDate = new System.Windows.Forms.DateTimePicker();
             this.dtpStartDate = new System.Windows.Forms.DateTimePicker();
-            this.btnAdMobLogin = new System.Windows.Forms.Button();
-            this.tabAppAnnie = new System.Windows.Forms.TabPage();
-            this.grdAppAnnie = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabAdMob = new System.Windows.Forms.TabPage();
+            this.grdAdMob = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCB.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdChartBoost)).BeginInit();
             this.tabMobFox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdMobFox)).BeginInit();
-            this.panel1.SuspendLayout();
             this.tabAppAnnie.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdAppAnnie)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.tabAdMob.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdAdMob)).BeginInit();
             this.SuspendLayout();
             // 
             // btnRevMob
@@ -74,14 +78,12 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.tabControl1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnAdMobLogin, 0, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 54F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 54F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(828, 559);
             this.tableLayoutPanel1.TabIndex = 7;
             // 
@@ -90,11 +92,12 @@
             this.tabControl1.Controls.Add(this.tabCB);
             this.tabControl1.Controls.Add(this.tabMobFox);
             this.tabControl1.Controls.Add(this.tabAppAnnie);
+            this.tabControl1.Controls.Add(this.tabAdMob);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(3, 57);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(822, 445);
+            this.tabControl1.Size = new System.Drawing.Size(822, 499);
             this.tabControl1.TabIndex = 9;
             // 
             // tabCB
@@ -162,6 +165,37 @@
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
             this.dataGridViewTextBoxColumn1.Width = 89;
             // 
+            // tabAppAnnie
+            // 
+            this.tabAppAnnie.Controls.Add(this.grdAppAnnie);
+            this.tabAppAnnie.Location = new System.Drawing.Point(4, 22);
+            this.tabAppAnnie.Name = "tabAppAnnie";
+            this.tabAppAnnie.Size = new System.Drawing.Size(814, 419);
+            this.tabAppAnnie.TabIndex = 2;
+            this.tabAppAnnie.Text = "App Annie";
+            this.tabAppAnnie.UseVisualStyleBackColor = true;
+            // 
+            // grdAppAnnie
+            // 
+            this.grdAppAnnie.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.grdAppAnnie.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdAppAnnie.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn2});
+            this.grdAppAnnie.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdAppAnnie.Location = new System.Drawing.Point(0, 0);
+            this.grdAppAnnie.MultiSelect = false;
+            this.grdAppAnnie.Name = "grdAppAnnie";
+            this.grdAppAnnie.ReadOnly = true;
+            this.grdAppAnnie.Size = new System.Drawing.Size(814, 419);
+            this.grdAppAnnie.TabIndex = 5;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "Applications";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 89;
+            // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -220,45 +254,37 @@
             this.dtpStartDate.Size = new System.Drawing.Size(200, 20);
             this.dtpStartDate.TabIndex = 10;
             // 
-            // btnAdMobLogin
+            // tabAdMob
             // 
-            this.btnAdMobLogin.Location = new System.Drawing.Point(3, 508);
-            this.btnAdMobLogin.Name = "btnAdMobLogin";
-            this.btnAdMobLogin.Size = new System.Drawing.Size(101, 31);
-            this.btnAdMobLogin.TabIndex = 10;
-            this.btnAdMobLogin.Text = "AdMob Login";
-            this.btnAdMobLogin.UseVisualStyleBackColor = true;
+            this.tabAdMob.Controls.Add(this.grdAdMob);
+            this.tabAdMob.Location = new System.Drawing.Point(4, 22);
+            this.tabAdMob.Name = "tabAdMob";
+            this.tabAdMob.Padding = new System.Windows.Forms.Padding(3);
+            this.tabAdMob.Size = new System.Drawing.Size(814, 473);
+            this.tabAdMob.TabIndex = 3;
+            this.tabAdMob.Text = "Ad Mob";
+            this.tabAdMob.UseVisualStyleBackColor = true;
             // 
-            // tabAppAnnie
+            // grdAdMob
             // 
-            this.tabAppAnnie.Controls.Add(this.grdAppAnnie);
-            this.tabAppAnnie.Location = new System.Drawing.Point(4, 22);
-            this.tabAppAnnie.Name = "tabAppAnnie";
-            this.tabAppAnnie.Size = new System.Drawing.Size(814, 419);
-            this.tabAppAnnie.TabIndex = 2;
-            this.tabAppAnnie.Text = "App Annie";
-            this.tabAppAnnie.UseVisualStyleBackColor = true;
+            this.grdAdMob.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.grdAdMob.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdAdMob.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn3});
+            this.grdAdMob.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdAdMob.Location = new System.Drawing.Point(3, 3);
+            this.grdAdMob.MultiSelect = false;
+            this.grdAdMob.Name = "grdAdMob";
+            this.grdAdMob.ReadOnly = true;
+            this.grdAdMob.Size = new System.Drawing.Size(808, 467);
+            this.grdAdMob.TabIndex = 6;
             // 
-            // grdAppAnnie
+            // dataGridViewTextBoxColumn3
             // 
-            this.grdAppAnnie.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.grdAppAnnie.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdAppAnnie.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn2});
-            this.grdAppAnnie.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdAppAnnie.Location = new System.Drawing.Point(0, 0);
-            this.grdAppAnnie.MultiSelect = false;
-            this.grdAppAnnie.Name = "grdAppAnnie";
-            this.grdAppAnnie.ReadOnly = true;
-            this.grdAppAnnie.Size = new System.Drawing.Size(814, 419);
-            this.grdAppAnnie.TabIndex = 5;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Applications";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Width = 89;
+            this.dataGridViewTextBoxColumn3.HeaderText = "Applications";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.Width = 89;
             // 
             // MainForm
             // 
@@ -276,10 +302,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.grdChartBoost)).EndInit();
             this.tabMobFox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdMobFox)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.tabAppAnnie.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdAppAnnie)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.tabAdMob.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grdAdMob)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -300,11 +328,13 @@
         private System.Windows.Forms.TabPage tabMobFox;
         private System.Windows.Forms.DataGridView grdMobFox;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.Button btnAdMobLogin;
         private System.Windows.Forms.Button btnCBRefresh;
         private System.Windows.Forms.TabPage tabAppAnnie;
         private System.Windows.Forms.DataGridView grdAppAnnie;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.TabPage tabAdMob;
+        private System.Windows.Forms.DataGridView grdAdMob;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
     }
 }
 

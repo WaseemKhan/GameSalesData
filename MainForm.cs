@@ -12,6 +12,7 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using System.Xml;
 using System.Xml.Serialization;
+using Binbin.AdMobApi;
 
 namespace GameSalesData
 {
@@ -22,6 +23,7 @@ namespace GameSalesData
 
         public List<MobFoxDataClasses.MobFoxPublication> MobFoxPubs = new List<MobFoxDataClasses.MobFoxPublication>();
 
+        public AdMobDataClasses.AdMobLoginResponse AdMobLoginResp;
 
         public MainForm()
         {
@@ -78,7 +80,91 @@ namespace GameSalesData
 
                 FillGridAppAnnieApps(dtpStartDate.Value, dtpEndDate.Value);
             }
+            else if (tabControl1.SelectedIndex == 3)
+            {
+                grdAdMob.Columns.Clear();
+                grdAdMob.Rows.Clear();
+
+                grdAdMob.Columns.Add("Column0", "Applications");
+                grdAdMob.Columns[0].Frozen = true;
+
+                grdAdMob.Columns.Add("Column1", "Totals");
+                grdAdMob.Columns[1].DefaultCellStyle.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold);
+                grdAdMob.Columns[1].Frozen = true;
+
+                FillGridAdMobApps(dtpStartDate.Value, dtpEndDate.Value);
+            }
             Cursor = Cursors.Default;
+        }
+
+        private void FillGridAdMobApps(DateTime StartDate, DateTime EndDate)
+        {
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = null;
+
+            // Populate Date in Header
+            for (DateTime dt = StartDate; dt <= EndDate; dt = dt.AddDays(1))
+            {
+                int ColumnIndex = grdAdMob.Columns.Add("Column" + grdMobFox.Columns.Count, dt.ToString("yyyy-MM-dd"));
+                grdAdMob.Columns[ColumnIndex].Tag = dt.ToString("yyyy-MM-dd");
+            }
+
+            String email = "zaftab@gmail.com";
+            String password = "g1ngn8v8d9y54b8c";
+            String clientKey = "k19d3456b72ef4b8065bf4ca4f2ae208";
+
+            client.BaseAddress = new Uri("https://api.admob.com/");
+
+            List<KeyValuePair<string,string>> ParamPair = new List<KeyValuePair<string, string>>
+                                                            {
+                                                                new KeyValuePair<string, string>("client_key", clientKey),
+                                                                new KeyValuePair<string, string>("email", email),
+                                                                new KeyValuePair<string, string>("password", password)
+                                                            };
+
+            response = client.PostAsync("v2/auth/login", new FormUrlEncodedContent(ParamPair)).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Parse the response body. Blocking!
+                AdMobLoginResp = response.Content.ReadAsAsync<AdMobDataClasses.AdMobLoginResponse>().Result;
+
+                if (AdMobLoginResp.Errors.Length > 1)
+                {
+                }
+                else
+                {
+                    ParamPair = new List<KeyValuePair<string, string>>
+                                                {
+                                                    new KeyValuePair<string, string>("client_key", clientKey),
+                                                    new KeyValuePair<string, string>("token", AdMobLoginResp.Data.Token)
+                                                };
+
+                    response = client.GetAsync("v2/site/search?client_key=" + clientKey + "&token=" + AdMobLoginResp.Data.Token).Result;
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        AdMobDataClasses.AdMobSiteSearchResponse AdMoSiteSearchResp = response.Content.ReadAsAsync<AdMobDataClasses.AdMobSiteSearchResponse>().Result;
+
+                        if (AdMoSiteSearchResp.Errors.Length > 1)
+                        {
+                        }
+                        else
+                        {
+                            foreach (var AdMobSite in AdMoSiteSearchResp.Data)
+                            {
+                                int rowIndex = grdAdMob.Rows.Add();
+
+                                grdAdMob.Rows[rowIndex].Cells[0].Value = AdMobSite.Name;
+
+                                // Initialize row columns with Zero
+                                for (int colIndex = 2; colIndex <= grdMobFox.ColumnCount - 1; colIndex++)
+                                    grdAdMob.Rows[rowIndex].Cells[colIndex].Value = "$0.0";
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void FillGridMobFoxApps(DateTime StartDate, DateTime EndDate)
@@ -405,41 +491,10 @@ namespace GameSalesData
                 //}
             }
         }
+
         private void btnAdMobLogin_Click(object sender, EventArgs e)
         {
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = null;
-
-            String email = "zaftab@gmail.com";
-            String password = "g1ngn8v8d9y54b8c";
-            String clientKey = "k19d3456b72ef4b8065bf4ca4f2ae208";
-
-            client.BaseAddress = new Uri("https://api.admob.com/");
-
-            // Add an Accept header for JSON format.
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            AdMobDataClasses.AdMobLoginParams Param = new AdMobDataClasses.AdMobLoginParams();
-
-            Param.client_key = clientKey;
-            Param.email = email;
-            Param.password = password;
-
-            String S = "email=" + email + "&password=" + password + "&client_key=" + clientKey + "&format=json";
-
-            //String S = "email=zaftab%40gmail.com&password=g1ngn8v8d9y54b8c&client_key=k19d3456b72ef4b8065bf4ca4f2ae208&format=json";
-
-            //response = client.PostAsync("v2/auth/login", new ByteArrayContent(System.Text.ASCIIEncoding.ASCII.GetBytes(S))).Result;
-
-            response = client.PostAsJsonAsync("v2/auth/login", Param).Result;
-
-            if (response.IsSuccessStatusCode)
-            {
-                // Parse the response body. Blocking!
-                //var products = response.Content.ReadAsAsync<AdMobDataClasses.AdMobResponse>().Result;
-
-                String resp = response.Content.ReadAsStringAsync().Result;
-            }
+            
         }
 
         private void btnRevMob_Click(object sender, EventArgs e)

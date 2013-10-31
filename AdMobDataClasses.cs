@@ -7,31 +7,72 @@ using Newtonsoft.Json;
 
 namespace GameSalesData.AdMobDataClasses
 {
-    public class AdMobResponse
+    public class AdMobResponseError
     {
-        [JsonProperty(PropertyName = "errors")]
-        public String Errors { get; set; }
+        [JsonProperty(PropertyName = "code")]
+        public String Code;
 
-        [JsonProperty(PropertyName = "warnings")]
-        public String Warnings { get; set; }
-
-        [JsonProperty(PropertyName = "data")]
-        public String Data { get; set; }
-
-        [JsonProperty(PropertyName = "page")]
-        public String Page { get; set; }
+        [JsonProperty(PropertyName = "msg")]
+        public String Message;
     }
 
-    [JsonObject()]
-    public class AdMobLoginParams
+    public class AdMobResponsePage
     {
-        [JsonProperty(PropertyName = "email")]
-        public String email { get; set; }
+        [JsonProperty(PropertyName = "current")]
+        public int Current;
 
-        [JsonProperty(PropertyName = "password")]
-        public String password { get; set; }
+        [JsonProperty(PropertyName = "total")]
+        public int Total;
+    }
 
-        [JsonProperty(PropertyName = "client_key")]
-        public String client_key { get; set; }
+    public class AdMobLoginResponse
+    {
+        [JsonProperty(PropertyName = "errors")]
+        public AdMobResponseError[] Errors { get; set; }
+
+        [JsonProperty(PropertyName = "warnings")]
+        public AdMobResponseError[] Warnings { get; set; }
+
+        [JsonProperty(PropertyName = "data")]
+        public AdMobLoginData Data { get; set; }
+
+        [JsonProperty(PropertyName = "page")]
+        public AdMobResponsePage Page { get; set; }
+    }
+
+    public class AdMobLoginData 
+    {
+        [JsonProperty(PropertyName = "token")]
+        public String Token;
+    }
+
+    public class AdMobSiteSearchResponse
+    {
+        [JsonProperty(PropertyName = "errors")]
+        public AdMobResponseError[] Errors { get; set; }
+
+        [JsonProperty(PropertyName = "warnings")]
+        public AdMobResponseError[] Warnings { get; set; }
+
+        [JsonProperty(PropertyName = "data")]
+        public AdMobSiteData[] Data { get; set; }
+
+        [JsonProperty(PropertyName = "page")]
+        public AdMobResponsePage Page { get; set; }
+    }
+
+    public class AdMobSiteData 
+    {
+        [JsonProperty(PropertyName = "id")]
+        public String ID;
+
+        [JsonProperty(PropertyName = "name")]
+        public String Name;
+
+        [JsonProperty(PropertyName = "url")]
+        public String URL;
+
+        [JsonProperty(PropertyName = "description")]
+        public String Description;
     }
 }
