@@ -14,9 +14,12 @@ namespace GameSalesData
         [STAThread]
         static void Main()
         {
+            AppDomain.CurrentDomain.SetData("DataDirectory", "E:\\Work\\Waseem\\GameSalesData\\GameSalesData");
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            //Application.Run(new ReportingForm());
+            Application.Run(new SettingsForm());
         }
     }
 }

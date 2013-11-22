@@ -1,6 +1,6 @@
 ﻿namespace GameSalesData
 {
-    partial class MainForm
+    partial class ReportingForm
     {
         /// <summary>
         /// Required designer variable.

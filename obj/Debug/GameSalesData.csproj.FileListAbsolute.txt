@@ -14,4 +14,5 @@ E:\Work\Waseem\GameSalesData\GameSalesData\obj\Debug\GameSalesData.DataPopupForm
 E:\Work\Waseem\GameSalesData\GameSalesData\bin\Debug\Binbin.AdMobApi.dll
 E:\Work\Waseem\GameSalesData\GameSalesData\bin\Debug\Binbin.HttpHelper.dll
 E:\Work\Waseem\GameSalesData\GameSalesData\bin\Debug\Binbin.AdMobApi.pdb
-E:\Work\Waseem\GameSalesData\GameSalesData\obj\Debug\GameSalesData.MainForm.resources
+E:\Work\Waseem\GameSalesData\GameSalesData\obj\Debug\GameSalesData.ReportingForm.resources
+E:\Work\Waseem\GameSalesData\GameSalesData\obj\Debug\GameSalesData.SettingsForm.resources

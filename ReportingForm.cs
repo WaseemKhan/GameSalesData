@@ -16,7 +16,7 @@ using Binbin.AdMobApi;
 
 namespace GameSalesData
 {
-    public partial class MainForm : Form
+    public partial class ReportingForm : Form
     {
         public List<AppAnnieDataClasses.AppAnnieAccount> AppAnnieAccounts = new List<AppAnnieDataClasses.AppAnnieAccount>();
         public List<AppAnnieDataClasses.AppAnnieApplication> AppAnnieApps = new List<AppAnnieDataClasses.AppAnnieApplication>();
@@ -25,7 +25,7 @@ namespace GameSalesData
 
         public AdMobDataClasses.AdMobLoginResponse AdMobLoginResp;
 
-        public MainForm()
+        public ReportingForm()
         {
             InitializeComponent();
 
