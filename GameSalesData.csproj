@@ -82,6 +82,7 @@
     <Compile Include="DataPopupForm.Designer.cs">
       <DependentUpon>DataPopupForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataServices\AdmobServices.cs" />
     <Compile Include="DataServices\ChartboostService.cs" />
     <Compile Include="Database\GameSalesDataMSSQLDataSet.Designer.cs">
       <AutoGen>True</AutoGen>

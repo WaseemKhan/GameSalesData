@@ -63,63 +63,28 @@ namespace GameSalesData.DataServices
             return bReturn;
         }
 
-        public bool UpdateAppsInDB()
-        {
-            if (GetChartboostApps())
-            {
-                GameSalesDataMSSQLDataSet.ChartboostAppsDataTable Tab;
-                ChartboostAppsTableAdapter TabAdapter = new ChartboostAppsTableAdapter();
 
-                Tab = TabAdapter.GetData();
-
-                foreach (var CBApp in CBAppList)
-                {
-                    GameSalesDataMSSQLDataSet.ChartboostAppsRow DBRow = Tab.FindByID(CBApp.ID);
-
-                    if (DBRow == null)
-                    {
-                        Tab.AddChartboostAppsRow(CBApp.ID, CBApp.Name);
-                    }
-                    else
-                    {
-                        DBRow.ApplicationName = CBApp.Name;
-                    }
-                }
-
-                TabAdapter.Update(Tab);
-
-                return true;
-            }
-            else
-                return false;
-        }
-
-        //public bool UpdateAppsInDB(int i) // Database.GameSalesDataDataSet.ChartboostAppsDataTable CBTable
-        public bool UpdateAppsInDB(Database.GameSalesDataDataSetTableAdapters.ChartboostAppsTableAdapter CBTabAdapter)
+        public bool UpdateAppsInDB(Database.GameSalesDataDataSet.ChartboostAppsDataTable CBTable)
         {
             if (GetChartboostApps())
             {
                 Database.GameSalesDataDataSetTableAdapters.ChartboostAppsTableAdapter CBTableAdapter = 
                                                 new Database.GameSalesDataDataSetTableAdapters.ChartboostAppsTableAdapter();
-                Database.GameSalesDataDataSet.ChartboostAppsDataTable CBTable;
-
-                CBTable = CBTableAdapter.GetData();
 
                 foreach (var CBApp in CBAppList)
                 {
-                    GameSalesDataDataSet.ChartboostAppsRow DBRow = CBTable.FindByID(CBApp.ID);//DB.ChartboostApps.FindByID(CBApp.ID);
+                    GameSalesDataDataSet.ChartboostAppsRow DBRow = CBTable.FindByID(CBApp.ID);
 
                     if (DBRow == null)
                     {
-                        CBTable.AddChartboostAppsRow(CBApp.ID, CBApp.Name);
+                        CBTable.AddChartboostAppsRow(CBApp.ID, CBApp.Name, CBApp.Platform,"");
                     }
                     else
                     {
                         DBRow.ApplicationName = CBApp.Name;
+                        DBRow.Platform = CBApp.Platform;
                     }
                 }
-
-                int count = CBTableAdapter.Update(CBTable);
 
                 return true;
             }

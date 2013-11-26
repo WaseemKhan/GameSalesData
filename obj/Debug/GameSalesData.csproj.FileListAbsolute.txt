@@ -9,10 +9,10 @@ E:\Work\Waseem\GameSalesData\GameSalesData\bin\Debug\Newtonsoft.Json.xml
 E:\Work\Waseem\GameSalesData\GameSalesData\bin\Debug\System.Net.Http.Formatting.xml
 E:\Work\Waseem\GameSalesData\GameSalesData\obj\Debug\GameSalesData.exe
 E:\Work\Waseem\GameSalesData\GameSalesData\obj\Debug\GameSalesData.pdb
-E:\Work\Waseem\GameSalesData\GameSalesData\obj\Debug\GameSalesData.csprojResolveAssemblyReference.cache
 E:\Work\Waseem\GameSalesData\GameSalesData\obj\Debug\GameSalesData.DataPopupForm.resources
 E:\Work\Waseem\GameSalesData\GameSalesData\bin\Debug\Binbin.AdMobApi.dll
 E:\Work\Waseem\GameSalesData\GameSalesData\bin\Debug\Binbin.HttpHelper.dll
 E:\Work\Waseem\GameSalesData\GameSalesData\bin\Debug\Binbin.AdMobApi.pdb
 E:\Work\Waseem\GameSalesData\GameSalesData\obj\Debug\GameSalesData.ReportingForm.resources
 E:\Work\Waseem\GameSalesData\GameSalesData\obj\Debug\GameSalesData.SettingsForm.resources
+E:\Work\Waseem\GameSalesData\GameSalesData\obj\Debug\GameSalesData.csprojResolveAssemblyReference.cache

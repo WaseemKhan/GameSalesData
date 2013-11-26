@@ -32,11 +32,7 @@ namespace GameSalesData.Database {
         
         private AdMobAppsDataTable tableAdMobApps;
         
-        private global::System.Data.DataRelation relationPlatformsApplications;
-        
-        private global::System.Data.DataRelation relationAdMobAppsApplications;
-        
-        private global::System.Data.DataRelation relationChartboostAppsApplications;
+        private global::System.Data.DataRelation relationAdMobAppsApplications1;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -272,9 +268,7 @@ namespace GameSalesData.Database {
                     this.tableAdMobApps.InitVars();
                 }
             }
-            this.relationPlatformsApplications = this.Relations["PlatformsApplications"];
-            this.relationAdMobAppsApplications = this.Relations["AdMobAppsApplications"];
-            this.relationChartboostAppsApplications = this.Relations["ChartboostAppsApplications"];
+            this.relationAdMobAppsApplications1 = this.Relations["AdMobAppsApplications1"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -293,18 +287,32 @@ namespace GameSalesData.Database {
             base.Tables.Add(this.tableChartboostApps);
             this.tableAdMobApps = new AdMobAppsDataTable();
             base.Tables.Add(this.tableAdMobApps);
-            this.relationPlatformsApplications = new global::System.Data.DataRelation("PlatformsApplications", new global::System.Data.DataColumn[] {
+            global::System.Data.ForeignKeyConstraint fkc;
+            fkc = new global::System.Data.ForeignKeyConstraint("PlatformsApplications", new global::System.Data.DataColumn[] {
                         this.tablePlatforms.IDColumn}, new global::System.Data.DataColumn[] {
-                        this.tableApplications.PlatformIDColumn}, false);
-            this.Relations.Add(this.relationPlatformsApplications);
-            this.relationAdMobAppsApplications = new global::System.Data.DataRelation("AdMobAppsApplications", new global::System.Data.DataColumn[] {
+                        this.tableApplications.PlatformIDColumn});
+            this.tableApplications.Constraints.Add(fkc);
+            fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
+            fkc.DeleteRule = global::System.Data.Rule.None;
+            fkc.UpdateRule = global::System.Data.Rule.None;
+            fkc = new global::System.Data.ForeignKeyConstraint("AdMobAppsApplications", new global::System.Data.DataColumn[] {
+                        this.tableAdMobApps.IDColumn}, new global::System.Data.DataColumn[] {
+                        this.tableApplications.AdMobIDColumn});
+            this.tableApplications.Constraints.Add(fkc);
+            fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
+            fkc.DeleteRule = global::System.Data.Rule.None;
+            fkc.UpdateRule = global::System.Data.Rule.None;
+            fkc = new global::System.Data.ForeignKeyConstraint("ChartboostAppsApplications", new global::System.Data.DataColumn[] {
+                        this.tableChartboostApps.IDColumn}, new global::System.Data.DataColumn[] {
+                        this.tableApplications.ChartboostIDColumn});
+            this.tableApplications.Constraints.Add(fkc);
+            fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
+            fkc.DeleteRule = global::System.Data.Rule.None;
+            fkc.UpdateRule = global::System.Data.Rule.None;
+            this.relationAdMobAppsApplications1 = new global::System.Data.DataRelation("AdMobAppsApplications1", new global::System.Data.DataColumn[] {
                         this.tableAdMobApps.IDColumn}, new global::System.Data.DataColumn[] {
                         this.tableApplications.AdMobIDColumn}, false);
-            this.Relations.Add(this.relationAdMobAppsApplications);
-            this.relationChartboostAppsApplications = new global::System.Data.DataRelation("ChartboostAppsApplications", new global::System.Data.DataColumn[] {
-                        this.tableChartboostApps.IDColumn}, new global::System.Data.DataColumn[] {
-                        this.tableApplications.ChartboostIDColumn}, false);
-            this.Relations.Add(this.relationChartboostAppsApplications);
+            this.Relations.Add(this.relationAdMobAppsApplications1);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -545,24 +553,18 @@ namespace GameSalesData.Database {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ApplicationsRow AddApplicationsRow(string ApplicationName, PlatformsRow parentPlatformsRowByPlatformsApplications, ChartboostAppsRow parentChartboostAppsRowByChartboostAppsApplications, AdMobAppsRow parentAdMobAppsRowByAdMobAppsApplications, string MobFoxID, string AppAnnieID) {
+            public ApplicationsRow AddApplicationsRow(string ApplicationName, int PlatformID, string ChartboostID, AdMobAppsRow parentAdMobAppsRowByAdMobAppsApplications1, string MobFoxID, string AppAnnieID) {
                 ApplicationsRow rowApplicationsRow = ((ApplicationsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         ApplicationName,
-                        null,
-                        null,
+                        PlatformID,
+                        ChartboostID,
                         null,
                         MobFoxID,
                         AppAnnieID};
-                if ((parentPlatformsRowByPlatformsApplications != null)) {
-                    columnValuesArray[2] = parentPlatformsRowByPlatformsApplications[0];
-                }
-                if ((parentChartboostAppsRowByChartboostAppsApplications != null)) {
-                    columnValuesArray[3] = parentChartboostAppsRowByChartboostAppsApplications[0];
-                }
-                if ((parentAdMobAppsRowByAdMobAppsApplications != null)) {
-                    columnValuesArray[4] = parentAdMobAppsRowByAdMobAppsApplications[0];
+                if ((parentAdMobAppsRowByAdMobAppsApplications1 != null)) {
+                    columnValuesArray[4] = parentAdMobAppsRowByAdMobAppsApplications1[0];
                 }
                 rowApplicationsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowApplicationsRow);
@@ -1044,6 +1046,10 @@ namespace GameSalesData.Database {
             
             private global::System.Data.DataColumn columnApplicationName;
             
+            private global::System.Data.DataColumn columnPlatform;
+            
+            private global::System.Data.DataColumn columnDisplayName;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ChartboostAppsDataTable() {
@@ -1095,6 +1101,22 @@ namespace GameSalesData.Database {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn PlatformColumn {
+                get {
+                    return this.columnPlatform;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn DisplayNameColumn {
+                get {
+                    return this.columnDisplayName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1130,11 +1152,13 @@ namespace GameSalesData.Database {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ChartboostAppsRow AddChartboostAppsRow(string ID, string ApplicationName) {
+            public ChartboostAppsRow AddChartboostAppsRow(string ID, string ApplicationName, string Platform, string DisplayName) {
                 ChartboostAppsRow rowChartboostAppsRow = ((ChartboostAppsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ID,
-                        ApplicationName};
+                        ApplicationName,
+                        Platform,
+                        DisplayName};
                 rowChartboostAppsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowChartboostAppsRow);
                 return rowChartboostAppsRow;
@@ -1166,6 +1190,8 @@ namespace GameSalesData.Database {
             internal void InitVars() {
                 this.columnID = base.Columns["ID"];
                 this.columnApplicationName = base.Columns["ApplicationName"];
+                this.columnPlatform = base.Columns["Platform"];
+                this.columnDisplayName = base.Columns["DisplayName"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1175,12 +1201,18 @@ namespace GameSalesData.Database {
                 base.Columns.Add(this.columnID);
                 this.columnApplicationName = new global::System.Data.DataColumn("ApplicationName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnApplicationName);
+                this.columnPlatform = new global::System.Data.DataColumn("Platform", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPlatform);
+                this.columnDisplayName = new global::System.Data.DataColumn("DisplayName", typeof(string), null, global::System.Data.MappingType.Element);
+                this.columnDisplayName.Expression = "'(' + SUBSTRING(Platform,1,3) + ') - ' + ApplicationName";
+                base.Columns.Add(this.columnDisplayName);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AllowDBNull = false;
                 this.columnID.Unique = true;
                 this.columnID.MaxLength = 255;
                 this.columnApplicationName.MaxLength = 255;
+                this.columnPlatform.MaxLength = 255;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1704,34 +1736,12 @@ namespace GameSalesData.Database {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public PlatformsRow PlatformsRow {
-                get {
-                    return ((PlatformsRow)(this.GetParentRow(this.Table.ParentRelations["PlatformsApplications"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["PlatformsApplications"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public AdMobAppsRow AdMobAppsRow {
                 get {
-                    return ((AdMobAppsRow)(this.GetParentRow(this.Table.ParentRelations["AdMobAppsApplications"])));
+                    return ((AdMobAppsRow)(this.GetParentRow(this.Table.ParentRelations["AdMobAppsApplications1"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["AdMobAppsApplications"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ChartboostAppsRow ChartboostAppsRow {
-                get {
-                    return ((ChartboostAppsRow)(this.GetParentRow(this.Table.ParentRelations["ChartboostAppsApplications"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["ChartboostAppsApplications"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["AdMobAppsApplications1"]);
                 }
             }
             
@@ -1860,17 +1870,6 @@ namespace GameSalesData.Database {
             public void SetPlatformNameNull() {
                 this[this.tablePlatforms.PlatformNameColumn] = global::System.Convert.DBNull;
             }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ApplicationsRow[] GetApplicationsRows() {
-                if ((this.Table.ChildRelations["PlatformsApplications"] == null)) {
-                    return new ApplicationsRow[0];
-                }
-                else {
-                    return ((ApplicationsRow[])(base.GetChildRows(this.Table.ChildRelations["PlatformsApplications"])));
-                }
-            }
         }
         
         /// <summary>
@@ -1916,6 +1915,38 @@ namespace GameSalesData.Database {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Platform {
+                get {
+                    try {
+                        return ((string)(this[this.tableChartboostApps.PlatformColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Platform\' in table \'ChartboostApps\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableChartboostApps.PlatformColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string DisplayName {
+                get {
+                    try {
+                        return ((string)(this[this.tableChartboostApps.DisplayNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DisplayName\' in table \'ChartboostApps\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableChartboostApps.DisplayNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsApplicationNameNull() {
                 return this.IsNull(this.tableChartboostApps.ApplicationNameColumn);
             }
@@ -1928,13 +1959,26 @@ namespace GameSalesData.Database {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ApplicationsRow[] GetApplicationsRows() {
-                if ((this.Table.ChildRelations["ChartboostAppsApplications"] == null)) {
-                    return new ApplicationsRow[0];
-                }
-                else {
-                    return ((ApplicationsRow[])(base.GetChildRows(this.Table.ChildRelations["ChartboostAppsApplications"])));
-                }
+            public bool IsPlatformNull() {
+                return this.IsNull(this.tableChartboostApps.PlatformColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetPlatformNull() {
+                this[this.tableChartboostApps.PlatformColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsDisplayNameNull() {
+                return this.IsNull(this.tableChartboostApps.DisplayNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetDisplayNameNull() {
+                this[this.tableChartboostApps.DisplayNameColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1994,11 +2038,11 @@ namespace GameSalesData.Database {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ApplicationsRow[] GetApplicationsRows() {
-                if ((this.Table.ChildRelations["AdMobAppsApplications"] == null)) {
+                if ((this.Table.ChildRelations["AdMobAppsApplications1"] == null)) {
                     return new ApplicationsRow[0];
                 }
                 else {
-                    return ((ApplicationsRow[])(base.GetChildRows(this.Table.ChildRelations["AdMobAppsApplications"])));
+                    return ((ApplicationsRow[])(base.GetChildRows(this.Table.ChildRelations["AdMobAppsApplications1"])));
                 }
             }
         }
@@ -3065,31 +3109,41 @@ namespace GameSalesData.Database.GameSalesDataDataSetTableAdapters {
             tableMapping.DataSetTable = "ChartboostApps";
             tableMapping.ColumnMappings.Add("ID", "ID");
             tableMapping.ColumnMappings.Add("ApplicationName", "ApplicationName");
+            tableMapping.ColumnMappings.Add("Platform", "Platform");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
             this._adapter.DeleteCommand.CommandText = "DELETE FROM `ChartboostApps` WHERE ((`ID` = ?) AND ((? = 1 AND `ApplicationName` " +
-                "IS NULL) OR (`ApplicationName` = ?)))";
+                "IS NULL) OR (`ApplicationName` = ?)) AND ((? = 1 AND `Platform` IS NULL) OR (`Pl" +
+                "atform` = ?)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ApplicationName", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ApplicationName", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ApplicationName", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ApplicationName", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Platform", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Platform", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Platform", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Platform", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO `ChartboostApps` (`ID`, `ApplicationName`) VALUES (?, ?)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO `ChartboostApps` (`ID`, `ApplicationName`, `Platform`) VALUES (?, ?, " +
+                "?)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ID", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ApplicationName", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ApplicationName", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Platform", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Platform", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE `ChartboostApps` SET `ID` = ?, `ApplicationName` = ? WHERE ((`ID` = ?) AND" +
-                " ((? = 1 AND `ApplicationName` IS NULL) OR (`ApplicationName` = ?)))";
+            this._adapter.UpdateCommand.CommandText = "UPDATE `ChartboostApps` SET `ID` = ?, `ApplicationName` = ?, `Platform` = ? WHERE" +
+                " ((`ID` = ?) AND ((? = 1 AND `ApplicationName` IS NULL) OR (`ApplicationName` = " +
+                "?)) AND ((? = 1 AND `Platform` IS NULL) OR (`Platform` = ?)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ID", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ApplicationName", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ApplicationName", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Platform", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Platform", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ApplicationName", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ApplicationName", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ApplicationName", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ApplicationName", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Platform", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Platform", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Platform", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Platform", global::System.Data.DataRowVersion.Original, false, null));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3105,7 +3159,7 @@ namespace GameSalesData.Database.GameSalesDataDataSetTableAdapters {
             this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, ApplicationName FROM ChartboostApps";
+            this._commandCollection[0].CommandText = "SELECT        ID, ApplicationName, Platform\r\nFROM            ChartboostApps";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -3166,7 +3220,7 @@ namespace GameSalesData.Database.GameSalesDataDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(string Original_ID, string Original_ApplicationName) {
+        public virtual int Delete(string Original_ID, string Original_ApplicationName, string Original_Platform) {
             if ((Original_ID == null)) {
                 this.Adapter.DeleteCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
@@ -3180,6 +3234,14 @@ namespace GameSalesData.Database.GameSalesDataDataSetTableAdapters {
             else {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
                 this.Adapter.DeleteCommand.Parameters[2].Value = ((string)(Original_ApplicationName));
+            }
+            if ((Original_Platform == null)) {
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[4].Value = ((string)(Original_Platform));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -3201,7 +3263,7 @@ namespace GameSalesData.Database.GameSalesDataDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string ID, string ApplicationName) {
+        public virtual int Insert(string ID, string ApplicationName, string Platform) {
             if ((ID == null)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
@@ -3213,6 +3275,12 @@ namespace GameSalesData.Database.GameSalesDataDataSetTableAdapters {
             }
             else {
                 this.Adapter.InsertCommand.Parameters[1].Value = ((string)(ApplicationName));
+            }
+            if ((Platform == null)) {
+                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(Platform));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -3234,7 +3302,7 @@ namespace GameSalesData.Database.GameSalesDataDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string ID, string ApplicationName, string Original_ID, string Original_ApplicationName) {
+        public virtual int Update(string ID, string ApplicationName, string Platform, string Original_ID, string Original_ApplicationName, string Original_Platform) {
             if ((ID == null)) {
                 this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
@@ -3247,19 +3315,33 @@ namespace GameSalesData.Database.GameSalesDataDataSetTableAdapters {
             else {
                 this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(ApplicationName));
             }
-            if ((Original_ID == null)) {
+            if ((Platform == null)) {
                 this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(Original_ID));
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(Platform));
             }
-            if ((Original_ApplicationName == null)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
+            if ((Original_ID == null)) {
+                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(Original_ApplicationName));
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Original_ID));
+            }
+            if ((Original_ApplicationName == null)) {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(Original_ApplicationName));
+            }
+            if ((Original_Platform == null)) {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(Original_Platform));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -3281,8 +3363,8 @@ namespace GameSalesData.Database.GameSalesDataDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string ApplicationName, string Original_ID, string Original_ApplicationName) {
-            return this.Update(Original_ID, ApplicationName, Original_ID, Original_ApplicationName);
+        public virtual int Update(string ApplicationName, string Platform, string Original_ID, string Original_ApplicationName, string Original_Platform) {
+            return this.Update(Original_ID, ApplicationName, Platform, Original_ID, Original_ApplicationName, Original_Platform);
         }
     }
     
